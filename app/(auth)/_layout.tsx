@@ -9,7 +9,13 @@ export default function AuthLayout() {
         }}
       />
       <Stack.Screen
-        name="sign-in"
+        name="register"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="otp"
         options={{
           headerShown: false,
         }}

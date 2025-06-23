@@ -1,21 +1,20 @@
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import React from "react";
+import ScreenWrapper from "@/components/ScreenWrapper";
 import GoBack from "@/components/common/GoBack";
 import { useRouter } from "expo-router";
-import React from "react";
-import { Pressable, Text, View } from "react-native";
 import { Colors } from "@/constants/Colors";
 import Button from "@/components/ui/Button";
-import TextInputs from "@/components/ui/TextInputs";
-import ScreenWrapper from "@/components/ScreenWrapper";
 
-const Register = () => {
+const OTP = () => {
   const router = useRouter();
   const handleGoBack = () => {
     router.back();
   };
   return (
     <ScreenWrapper>
-      <GoBack onPress={handleGoBack} title="Sign Up" />
-      <View style={{ marginVertical: 32, alignItems: "center" }}>
+      <GoBack onPress={handleGoBack} />
+      <View style={{ marginTop: 32, alignItems: "center" }}>
         <Text
           style={{
             color: "black",
@@ -25,7 +24,7 @@ const Register = () => {
             letterSpacing: 0.5,
           }}
         >
-          Complete your account
+          Enter OTP
         </Text>
         <Text
           style={{
@@ -38,36 +37,26 @@ const Register = () => {
             textAlign: "center",
           }}
         >
-          Lorem ipsum dolor sit amet
+          We have just sent you 4 digit code via your email example@gmail.com
         </Text>
       </View>
-
-      <View>
-        <TextInputs label="First Name" />
-        <TextInputs
-          label="Last Name"
-          containerStyle={{ paddingVertical: 16 }}
+      <View style={{ marginVertical: 40 }}>
+        <TextInput
+          maxLength={1}
+          keyboardType="number-pad"
+          style={styles.otpBox}
         />
-        <TextInputs label="E-mail" />
-        <TextInputs
-          label="Password"
-          containerStyle={{ paddingVertical: 16 }}
-          eyeVisible
-        />
-        <TextInputs label="Confirm Password" eyeVisible />
       </View>
-
       <Button
         onPress={() => router.replace("/(auth)/otp")}
         btnTitle="Sign Up"
-        containerStyle={{ marginVertical: 24 }}
       />
-
       <View
         style={{
           flexDirection: "row",
           justifyContent: "center",
           alignItems: "center",
+          marginTop: 24,
         }}
       >
         <Text
@@ -80,7 +69,7 @@ const Register = () => {
             color: Colors.nevada,
           }}
         >
-          Already have an account?{" "}
+          Didn’t receive code?{" "}
         </Text>
         <Pressable onPress={() => router.replace("/(auth)/index")}>
           <Text
@@ -93,7 +82,7 @@ const Register = () => {
               color: Colors.mainPrimary,
             }}
           >
-            Login
+            Resend Code
           </Text>
         </Pressable>
       </View>
@@ -101,4 +90,22 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default OTP;
+
+const styles = StyleSheet.create({
+  otpBox: {
+    width: 56,
+    height: 56,
+    backgroundColor: "#FFFFFF",
+    borderWidth: 1,
+    borderColor: "#FF4A26",
+    borderRadius: 24,
+    textAlign: "center",
+    justifyContent: "center",
+    fontSize: 24,
+    lineHeight: 32,
+    letterSpacing: 0.5,
+    fontFamily: "PlusJakartaSans_700Bold",
+    color: "#000",
+  },
+});

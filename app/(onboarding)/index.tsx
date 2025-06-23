@@ -122,7 +122,7 @@ export default function OnBoarding() {
           <Animated.Text style={styles.registerText}>
             Don’t have an account?{" "}
           </Animated.Text>
-          <Pressable onPress={() => router.replace("/auth/sign-up")}>
+          <Pressable onPress={() => router.replace("/(auth)/register")}>
             <Text style={[styles.registerText, { color: Colors.mainPrimary }]}>
               Register
             </Text>
