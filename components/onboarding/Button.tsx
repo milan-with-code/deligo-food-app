@@ -1,3 +1,5 @@
+import { storage } from "@/storage/storage";
+import { useNavigation, useRouter } from "expo-router";
 import React, { useCallback } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import Animated, {
@@ -16,6 +18,7 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 const Button = ({ currentIndex, length, flatListRef }: Props) => {
   const isLast = currentIndex.value === length - 1;
+  const router = useRouter();
 
   const rnBtnStyle = useAnimatedStyle(() => ({
     width: "50%",
@@ -48,8 +51,11 @@ const Button = ({ currentIndex, length, flatListRef }: Props) => {
     ],
   }));
 
-  const onPress = useCallback(() => {
-    if (!isLast) {
+  const onPress = useCallback(async () => {
+    if (isLast) {
+      await storage.completeOnBoardingScreen();
+      router.push("/(auth)");
+    } else {
       flatListRef?.current?.scrollToIndex({
         index: currentIndex.value + 1,
       });
