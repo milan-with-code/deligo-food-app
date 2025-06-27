@@ -11,7 +11,7 @@ export default function NotFoundScreen() {
           The page you are looking for was not found or has been moved.
         </Text>
 
-        <Link href="/(onboarding)" style={styles.link}>
+        <Link href="/" style={styles.link}>
           <Text style={styles.linkText}>Go to Home</Text>
         </Link>
       </View>

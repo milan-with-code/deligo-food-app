@@ -48,7 +48,6 @@ export const storage = {
   async isComplete() {
     try {
       const value = await this.get(ONBOARDING_KEY);
-      console.log('value :>> ', value);
       return value === 'true';
     } catch (error) {
       console.error('Error reading onboarding status:', error);

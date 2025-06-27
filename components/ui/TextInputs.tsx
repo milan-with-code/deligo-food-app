@@ -73,7 +73,7 @@ const TextInputs: React.FC<TextInputProps> = ({
               position: "absolute",
               top: "50%",
               right: 16,
-              transform: [{ translateY: -12 }],
+              transform: [{ translateY: -10 }],
             }}
           >
             <Ionicons

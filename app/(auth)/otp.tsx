@@ -1,111 +1,131 @@
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import React from "react";
-import ScreenWrapper from "@/components/ScreenWrapper";
-import GoBack from "@/components/common/GoBack";
+import React, { useCallback, useRef, useState } from "react";
+import {
+  StyleSheet,
+  TextInput,
+  View,
+  TextInput as RNTextInput,
+} from "react-native";
 import { useRouter } from "expo-router";
 import { Colors } from "@/constants/Colors";
-import Button from "@/components/ui/Button";
+import VerificationSuccessModal from "@/components/modals/VerificationSuccessModal";
+import AuthFormScreen from "@/components/common/AuthFormScreen";
 
 const OTP = () => {
   const router = useRouter();
-  const handleGoBack = () => {
-    router.back();
+
+  const [otp, setOtp] = useState(["", "", "", ""]);
+  const inputsRef = useRef<Array<RNTextInput | null>>([]);
+  const [isOpenVerifyModal, setIsOpenVerifyModal] = useState(false);
+
+  const handleChange = (value: string, index: number) => {
+    if (/^\d$/.test(value)) {
+      const newOtp = [...otp];
+      newOtp[index] = value;
+      setOtp(newOtp);
+
+      if (index < 3) {
+        inputsRef.current[index + 1]?.focus();
+      }
+    }
   };
+
+  const handleKeyPress = (e: any, index: number) => {
+    if (e.nativeEvent.key === "Backspace" && !otp[index] && index > 0) {
+      inputsRef.current[index - 1]?.focus();
+    }
+  };
+
+  const handleSubmit = () => {
+    const code = otp.join("");
+    if (code) {
+      setIsOpenVerifyModal(true);
+      setOtp([]);
+    }
+  };
+
+  const handleGoBack = () => router.back();
+
+  const onClose = useCallback(() => {
+    setIsOpenVerifyModal(false);
+  }, []);
+
+  const handlePressContinue = useCallback(() => {
+    console.log("continue next screen");
+    setIsOpenVerifyModal(false);
+  }, []);
+
+  const handleResend = useCallback(() => {
+    console.log("Resending code...");
+  }, []);
+
   return (
-    <ScreenWrapper>
-      <GoBack onPress={handleGoBack} />
-      <View style={{ marginTop: 32, alignItems: "center" }}>
-        <Text
-          style={{
-            color: "black",
-            fontFamily: "PlusJakartaSans_700Bold",
-            fontSize: 24,
-            lineHeight: 32,
-            letterSpacing: 0.5,
-          }}
-        >
-          Enter OTP
-        </Text>
-        <Text
-          style={{
-            paddingTop: 8,
-            color: Colors.nevada,
-            fontFamily: "PlusJakartaSans_700Medium",
-            fontSize: 14,
-            lineHeight: 22,
-            letterSpacing: 0.5,
-            textAlign: "center",
-          }}
-        >
-          We have just sent you 4 digit code via your email example@gmail.com
-        </Text>
-      </View>
-      <View style={{ marginVertical: 40 }}>
-        <TextInput
-          maxLength={1}
-          keyboardType="number-pad"
-          style={styles.otpBox}
-        />
-      </View>
-      <Button
-        onPress={() => router.replace("/(auth)/otp")}
-        btnTitle="Sign Up"
-      />
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: 24,
-        }}
+    <>
+      <AuthFormScreen
+        title="Enter OTP"
+        subtitle="We have just sent you 4 digit code via your email example@gmail.com"
+        onGoBack={handleGoBack}
+        onContinue={handleSubmit}
+        buttonTitle="Continue"
+        showRegisterPrompt
+        actionText="Resend Code"
+        messageText="Didn’t receive code? "
+        onRegisterPress={handleResend}
+        messageTextStyle={{ color: Colors.additionalGray }}
+        containerStyle={styles.footer}
       >
-        <Text
-          style={{
-            textAlign: "center",
-            fontFamily: "PlusJakartaSans_600SemiBold",
-            fontSize: 16,
-            lineHeight: 24,
-            letterSpacing: 0.5,
-            color: Colors.nevada,
-          }}
-        >
-          Didn’t receive code?{" "}
-        </Text>
-        <Pressable onPress={() => router.replace("/(auth)/index")}>
-          <Text
-            style={{
-              textAlign: "center",
-              fontFamily: "PlusJakartaSans_600SemiBold",
-              fontSize: 16,
-              lineHeight: 24,
-              letterSpacing: 0.5,
-              color: Colors.mainPrimary,
-            }}
-          >
-            Resend Code
-          </Text>
-        </Pressable>
-      </View>
-    </ScreenWrapper>
+        <View style={styles.otpRow}>
+          {otp.map((digit, index) => (
+            <TextInput
+              key={index}
+              ref={(ref) => {
+                inputsRef.current[index] = ref;
+              }}
+              style={styles.otpBox}
+              keyboardType="number-pad"
+              maxLength={1}
+              value={digit}
+              onChangeText={(value) => handleChange(value, index)}
+              onKeyPress={(e) => handleKeyPress(e, index)}
+              autoFocus={index === 0}
+              cursorColor={Colors.mainPrimary}
+            />
+          ))}
+        </View>
+      </AuthFormScreen>
+      <VerificationSuccessModal
+        visible={isOpenVerifyModal}
+        handlePressContinue={handlePressContinue}
+        onClose={onClose}
+      />
+    </>
   );
 };
 
 export default OTP;
 
 const styles = StyleSheet.create({
+  otpRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 12,
+    paddingHorizontal: 24,
+  },
   otpBox: {
-    width: 56,
+    flex: 1,
     height: 56,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#fff",
     borderWidth: 1,
     borderColor: "#FF4A26",
     borderRadius: 24,
     textAlign: "center",
-    justifyContent: "center",
     fontSize: 24,
-    lineHeight: 32,
-    letterSpacing: 0.5,
     fontFamily: "PlusJakartaSans_700Bold",
     color: "#000",
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 24,
   },
 });

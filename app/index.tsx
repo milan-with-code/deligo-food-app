@@ -9,7 +9,6 @@ export default function Page() {
   useEffect(() => {
     const checkOnBoardingStatus = async () => {
       const checkStatus = await storage.isComplete();
-      console.log("✅ Onboarding complete:", checkStatus);
       setSeen(checkStatus);
     };
 
@@ -18,5 +17,5 @@ export default function Page() {
 
   if (!rootNavigationState?.key || seen === null) return null;
 
-  return <Redirect href={seen ? "/(auth)" : "/(onboarding)"} />;
+  return <Redirect href={seen ? "/(auth)/otp" : "/(onboarding)"} />;
 }

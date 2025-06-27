@@ -7,4 +7,6 @@ export const Colors = {
   mainPrimary: "#FF4A26",
   grayScale: "#78828A",
   nevada: "#66707A",
+  alertError: "#E53935",
+  additionalGray: "#6C6C6C",
 };
