@@ -1,8 +1,9 @@
-import { View, Text, Modal, StyleSheet } from "react-native";
+import { View, Modal, StyleSheet } from "react-native";
 import React from "react";
 import { Colors } from "@/constants/Colors";
-import Button from "../ui/Button";
 import SuccessSymbol from "../../assets/images/success-symbol.svg";
+import { Button } from "@/~/components/ui/button";
+import { Text } from "@/~/components/ui/text";
 
 interface VerificationSuccessModalProps {
   visible: boolean;
@@ -25,12 +26,14 @@ const VerificationSuccessModal: React.FC<VerificationSuccessModalProps> = ({
       <View style={styles.overlay}>
         <View style={styles.modal}>
           <SuccessSymbol />
-          <View style={{ marginTop: 30 }}>
+          <View className="mt-7 w-full">
             <Text style={styles.title}>You have logged in successfully 🎉</Text>
             <Text style={styles.message}>
               Welcome back! You're now signed in.
             </Text>
-            <Button btnTitle="Continue" onPress={handlePressContinue} />
+            <Button onPress={handlePressContinue}>
+              <Text>Continue</Text>
+            </Button>
           </View>
         </View>
       </View>

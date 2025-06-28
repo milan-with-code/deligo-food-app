@@ -10,7 +10,7 @@ import {
 } from "@expo-google-fonts/plus-jakarta-sans";
 import { Stack } from "expo-router";
 import "react-native-reanimated";
-
+import "../global.css";
 export default function RootLayout() {
   const [loaded] = useFonts({
     PlusJakartaSans_200ExtraLight,

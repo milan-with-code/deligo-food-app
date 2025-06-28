@@ -1,13 +1,8 @@
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  ViewStyle,
-} from "react-native";
+import { View, TouchableOpacity, ViewStyle } from "react-native";
 import React, { useState } from "react";
-import { Colors } from "@/constants/Colors";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Input } from "@/~/components/ui/input";
+import { Label } from "@/~/components/ui/label";
+import { Eye, EyeOff } from "lucide-react-native";
 
 type TextInputProps = {
   label?: string;
@@ -26,61 +21,35 @@ const TextInputs: React.FC<TextInputProps> = ({
   containerStyle,
   eyeVisible,
 }) => {
-  const [secure, setSecure] = useState<boolean>(true);
+  const [secure, setSecure] = useState<boolean>(false);
   const handlePasswordVisibility = () => {
     setSecure(!secure);
   };
   return (
     <View style={containerStyle}>
       {label && (
-        <Text
-          style={{
-            color: Colors.grayScale,
-            fontFamily: "PlusJakartaSans_400Regular",
-            fontSize: 12,
-            lineHeight: 22,
-            letterSpacing: 0.5,
-            marginBottom: 8,
-          }}
-        >
+        <Label className="leading-5 tracking-wider mb-2 text-grayScale">
           {label}
-        </Text>
+        </Label>
       )}
       <View>
-        <TextInput
+        <Input
           secureTextEntry={secure}
           onChangeText={onChangeText}
           value={value}
-          style={{
-            position: "relative",
-            height: 56,
-            borderWidth: 1,
-            borderColor: "#E3E7EC",
-            borderRadius: 24,
-            paddingHorizontal: 16,
-            fontSize: 16,
-            lineHeight: 24,
-            color: "black",
-            fontFamily: "PlusJakartaSans_500Medium",
-          }}
-          placeholderTextColor="#9CA4AB"
           placeholder={placeholder}
         />
+
         {eyeVisible && (
           <TouchableOpacity
             onPress={handlePasswordVisibility}
-            style={{
-              position: "absolute",
-              top: "50%",
-              right: 16,
-              transform: [{ translateY: -10 }],
-            }}
+            className="absolute top-1/2 right-4 -translate-y-3"
           >
-            <Ionicons
-              name={secure ? "eye" : "eye-off-sharp"}
-              size={24}
-              color="black"
-            />
+            {secure ? (
+              <EyeOff size={24} color="#9CA4AB" />
+            ) : (
+              <Eye size={24} color="#9CA4AB" />
+            )}
           </TouchableOpacity>
         )}
       </View>

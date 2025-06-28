@@ -1,16 +1,17 @@
 import React from "react";
-import { View, Text, Pressable, StyleSheet } from "react-native";
+import { View, Pressable, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 
 import ScreenWrapper from "@/components/ScreenWrapper";
 import GoBack from "@/components/common/GoBack";
 import TextInputs from "@/components/ui/TextInputs";
-import Button from "@/components/ui/Button";
 import RegisterPrompt from "@/components/RegisterPrompt";
 
 import GoogleSymbol from "../../assets/images/google-symbol.svg";
 import AppleSymbol from "../../assets/images/apple-symbol.svg";
 import { Colors } from "@/constants/Colors";
+import { Button } from "@/~/components/ui/button";
+import { Text } from "@/~/components/ui/text";
 
 const Login = () => {
   const router = useRouter();
@@ -46,7 +47,9 @@ const Login = () => {
         </View>
       </View>
 
-      <Button btnTitle="Sign In" onPress={handleSignIn} />
+      <Button>
+        <Text>Sign In</Text>
+      </Button>
 
       <Text style={styles.orText}>Or continue with</Text>
 

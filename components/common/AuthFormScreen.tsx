@@ -1,10 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet, ViewStyle, TextStyle } from "react-native";
+import { View, StyleSheet, ViewStyle, TextStyle } from "react-native";
 import ScreenWrapper from "@/components/ScreenWrapper";
 import GoBack from "@/components/common/GoBack";
-import Button from "@/components/ui/Button";
 import { Colors } from "@/constants/Colors";
 import RegisterPrompt from "../RegisterPrompt";
+import { Text } from "@/~/components/ui/text";
+import { Button } from "@/~/components/ui/button";
 
 type Props = {
   title: string;
@@ -45,7 +46,9 @@ const AuthFormScreen = ({
         <Text style={styles.subtitle}>{subtitle}</Text>
       </View>
       <View style={[{ marginVertical: 32 }, containerStyle]}>{children}</View>
-      <Button onPress={onContinue} btnTitle={buttonTitle} />
+      <Button onPress={onContinue}>
+        <Text>{buttonTitle}</Text>
+      </Button>
       {showRegisterPrompt && onRegisterPress && (
         <RegisterPrompt
           containerStyle={{ paddingTop: 32 }}

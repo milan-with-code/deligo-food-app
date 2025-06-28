@@ -1,11 +1,12 @@
 import GoBack from "@/components/common/GoBack";
 import { useRouter } from "expo-router";
 import React from "react";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, View } from "react-native";
 import { Colors } from "@/constants/Colors";
-import Button from "@/components/ui/Button";
 import TextInputs from "@/components/ui/TextInputs";
 import ScreenWrapper from "@/components/ScreenWrapper";
+import { Button } from "@/~/components/ui/button";
+import { Text } from "@/~/components/ui/text";
 
 const Register = () => {
   const router = useRouter();
@@ -57,11 +58,9 @@ const Register = () => {
         <TextInputs label="Confirm Password" eyeVisible />
       </View>
 
-      <Button
-        onPress={() => router.replace("/(auth)/otp")}
-        btnTitle="Sign Up"
-        containerStyle={{ marginVertical: 24 }}
-      />
+      <Button onPress={() => router.replace("/(auth)/otp")} className="my-6">
+        <Text>Sign Up</Text>
+      </Button>
 
       <View
         style={{
