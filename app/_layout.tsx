@@ -1,3 +1,4 @@
+import { PortalHost } from "@rn-primitives/portal";
 import {
   PlusJakartaSans_200ExtraLight,
   PlusJakartaSans_300Light,
@@ -26,5 +27,10 @@ export default function RootLayout() {
     return null;
   }
 
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return (
+    <>
+      <Stack screenOptions={{ headerShown: false }} />
+      <PortalHost />
+    </>
+  );
 }

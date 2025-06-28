@@ -17,5 +17,5 @@ export default function Page() {
 
   if (!rootNavigationState?.key || seen === null) return null;
 
-  return <Redirect href={seen ? "/(auth)" : "/(onboarding)"} />;
+  return <Redirect href={seen ? "/selectLocation" : "/(onboarding)"} />;
 }

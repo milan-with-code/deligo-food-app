@@ -8,7 +8,7 @@ module.exports = {
     "./components/**/*.{js,jsx,ts,tsx}",
     "./~/components/ui/**/*.{js,jsx,ts,tsx}",
   ],
-  presets: [require("nativewind/preset")],
+  presets: [require("nativewind/preset"), require("nativewind/tailwind/css")],
   theme: {
     extend: {
       fontFamily: {
@@ -22,6 +22,9 @@ module.exports = {
       },
       colors: {
         grayScale: "#78828A",
+        grayChateau: "#9CA4AB",
+        doveGray: "#6C6C6C",
+        athensGray: "#E3E7EC",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
